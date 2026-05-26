@@ -103,7 +103,9 @@ http://127.0.0.1:5000
 
 # Screenshots
 
-Add screenshots here after completing the project.
+<img width="611" height="770" alt="Screenshot 2026-05-26 223612" src="https://github.com/user-attachments/assets/88532550-6060-452b-998c-e74278ee1f4d" />
+<img width="636" height="641" alt="Screenshot 2026-05-26 223509" src="https://github.com/user-attachments/assets/67bfae90-7dbb-4c81-94f4-fdd5c1e9377b" />
+
 
 ---
 
