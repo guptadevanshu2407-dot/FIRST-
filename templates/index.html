@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Expense Tracker</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Expense Tracker</h1>
+
+        <input type="text"
+               id="category"
+               placeholder="Enter Category">
+
+        <input type="number"
+               id="amount"
+               placeholder="Enter Amount">
+
+        <input type="text"
+               id="description"
+               placeholder="Enter Description">
+
+        <button onclick="addExpense()">
+            Add Expense
+        </button>
+
+        <button onclick="viewExpenses()">
+            View Expenses
+        </button>
+
+        <button onclick="deleteExpenses()">
+            Delete All Expenses
+        </button>
+
+        <div id="result"></div>
+
+    </div>
+
+
+<script>
+
+async function addExpense() {
+
+    const category =
+        document.getElementById("category").value;
+
+    const amount =
+        document.getElementById("amount").value;
+
+    const description =
+        document.getElementById("description").value;
+
+
+    const response = await fetch("/add", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            category,
+            amount,
+            description
+        })
+    });
+
+    const data = await response.json();
+
+    alert(data.message);
+}
+
+
+async function viewExpenses() {
+
+    const response = await fetch("/view");
+
+    const data = await response.json();
+
+    let output = "";
+
+    data.forEach(expense => {
+
+        output += `
+
+            <div class="expense-box">
+
+                <h3>${expense.category}</h3>
+
+                <p>Amount: ₹${expense.amount}</p>
+
+                <p>Description: ${expense.description}</p>
+
+            </div>
+        `;
+    });
+
+    document.getElementById("result").innerHTML =
+        output;
+}
+
+
+async function deleteExpenses() {
+
+    const response = await fetch("/delete", {
+
+        method: "POST"
+    });
+
+    const data = await response.json();
+
+    alert(data.message);
+
+    document.getElementById("result").innerHTML = "";
+}
+
+</script>
+
+</body>
+</html>
